@@ -26,8 +26,13 @@ sync: setup
 		assets/presentation_ps1.b64.04 \
 		assets/presentation_ps1.b64.05 \
 		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/presentation_ps1.bin"
+	@cat assets/home_ps1.b64 \
+		assets/home_ps1.b64.01 \
+		assets/home_ps1.b64.02 \
+		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/home_ps1.bin"
 	@python3 tools/input_compat.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/splash_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/home_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
