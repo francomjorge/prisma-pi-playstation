@@ -40,6 +40,11 @@ sync: setup
 	@cat assets/india_ps1.b64 \
 		assets/india_ps1.b64.01 \
 		assets/india_ps1.b64.02 \
+		assets/india_ps1.b64.03 \
+		assets/india_ps1.b64.04a \
+		assets/india_ps1.b64.04b \
+		assets/india_ps1.b64.04c \
+		assets/india_ps1.b64.05 \
 		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/india_ps1.bin"
 	@python3 tools/input_compat.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/splash_patch.py "$(EXAMPLE_DIR)/src/main.rs"
