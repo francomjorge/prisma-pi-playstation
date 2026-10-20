@@ -33,6 +33,7 @@ sync: setup
 	@python3 tools/input_compat.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/splash_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/home_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/home_selector_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
