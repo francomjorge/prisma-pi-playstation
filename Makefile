@@ -33,7 +33,11 @@ sync: setup
 		assets/home_ps1.b64.04 \
 		assets/home_ps1.b64.05 \
 		assets/home_ps1.b64.06 \
-		assets/home_ps1.b64.07 \
+		assets/home_ps1.b64.07a \
+		assets/home_ps1.b64.07b \
+		assets/home_ps1.b64.07c \
+		assets/home_ps1.b64.07d \
+		assets/home_ps1.b64.07e \
 		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/home_ps1.bin"
 	@python3 tools/input_compat.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/splash_patch.py "$(EXAMPLE_DIR)/src/main.rs"
