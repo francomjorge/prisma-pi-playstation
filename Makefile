@@ -19,7 +19,15 @@ sync: setup
 	@mkdir -p "$(EXAMPLE_DIR)/src"
 	@cp Cargo.toml "$(EXAMPLE_DIR)/Cargo.toml"
 	@cp src/main.rs "$(EXAMPLE_DIR)/src/main.rs"
+	@cat assets/presentation_ps1.b64 \
+		assets/presentation_ps1.b64.01 \
+		assets/presentation_ps1.b64.02 \
+		assets/presentation_ps1.b64.03 \
+		assets/presentation_ps1.b64.04 \
+		assets/presentation_ps1.b64.05 \
+		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/presentation_ps1.bin"
 	@python3 tools/input_compat.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/splash_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
