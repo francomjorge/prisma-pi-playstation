@@ -16,14 +16,14 @@ old = '''    if selection == 0 {
     }
 '''
 
-new = '''    // Selection follows the actual chamfered card silhouette in the 320x240 artwork.
-    // These coordinates were measured on the quantized HOME asset, not guessed as a box.
+new = '''    // Selection follows the actual beveled silhouettes baked into the native
+    // 320x240 HOME master. LEFT / RIGHT only moves this live overlay.
     if selection == 0 {
-        draw_chamfer_selector(19, 177, 147, 42, 7, cyan);
-        draw_side_chevron(10, 198, true, cyan);
+        draw_chamfer_selector(20, 175, 145, 45, 7, cyan);
+        draw_side_chevron(13, 197, true, cyan);
     } else {
-        draw_chamfer_selector(168, 177, 137, 42, 7, magenta);
-        draw_side_chevron(310, 198, false, magenta);
+        draw_chamfer_selector(168, 175, 140, 45, 7, magenta);
+        draw_side_chevron(313, 197, false, magenta);
     }
 '''
 
@@ -51,13 +51,11 @@ new_helper = '''fn draw_chamfer_selector(
     let hi = h as i16;
     let ci = cut as i16;
 
-    // Straight sections of the octagonal/chamfered bezel.
     draw_rect(x + ci, y, w - cut * 2, 1, color);
     draw_rect(x + ci, y + hi - 1, w - cut * 2, 1, color);
     draw_rect(x, y + ci, 1, h - cut * 2, color);
     draw_rect(x + wi - 1, y + ci, 1, h - cut * 2, color);
 
-    // Four pixel diagonals make the animated selector follow the actual button corners.
     let mut i: i16 = 0;
     while i < ci {
         draw_rect(x + i, y + ci - i, 1, 1, color);
@@ -69,7 +67,6 @@ new_helper = '''fn draw_chamfer_selector(
 }
 
 fn draw_side_chevron(x: i16, y: i16, points_right: bool, color: (u8, u8, u8)) {
-    // Small animated navigation cue outside the active card. It moves with LEFT / RIGHT.
     let mut i: i16 = 0;
     while i < 7 {
         let dx = if points_right { i } else { -i };
@@ -85,4 +82,4 @@ if old_helper not in s:
 s = s.replace(old_helper, new_helper, 1)
 
 path.write_text(s)
-print(f'Applied chamfer-matched HOME selector to {path}')
+print(f'Applied native-card matched HOME selector to {path}')
