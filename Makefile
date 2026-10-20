@@ -48,7 +48,7 @@ sync: setup
 		assets/india_ps1.b64.05 \
 		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/india_ps1.bin"
 	@cat assets/india_ui_ps1.b64 | base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/india_ui_ps1.bin"
-	@cat assets/prisma_fire_ps1.b64 | base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/prisma_fire_ps1.bin"
+	@cat assets/prisma_fire_ps1.b64.head assets/prisma_fire_ps1.b64 | base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/prisma_fire_ps1.bin"
 	@python3 tools/input_compat.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/splash_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/home_patch.py "$(EXAMPLE_DIR)/src/main.rs"
