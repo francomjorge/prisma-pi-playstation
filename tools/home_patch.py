@@ -28,6 +28,28 @@ const HOME_CLUT: Clut = Clut::new(512, 496);
         "home upload call",
     ),
     (
+        """            Screen::Home => {
+                if just_pressed(pressed, button::UP) || just_pressed(pressed, button::DOWN) {
+                    home_selection ^= 1;
+                }
+                if confirm_pressed(pressed) {
+                    screen = if home_selection == 0 { Screen::Prisma } else { Screen::TestMenu };
+                }
+            }
+""",
+        """            Screen::Home => {
+                // HOME is a two-card horizontal browser: LEFT / RIGHT only.
+                if just_pressed(pressed, button::LEFT) || just_pressed(pressed, button::RIGHT) {
+                    home_selection ^= 1;
+                }
+                if confirm_pressed(pressed) {
+                    screen = if home_selection == 0 { Screen::Prisma } else { Screen::TestMenu };
+                }
+            }
+""",
+        "horizontal home navigation",
+    ),
+    (
         "Screen::Home => render_home(&font, home_selection, pad_state),",
         "Screen::Home => render_home(&font, home_selection, frame_counter),",
         "home render call",
@@ -54,11 +76,20 @@ const HOME_CLUT: Clut = Clut::new(512, 496);
     font.draw_text(76, 220, \"UP/DOWN  START OR CROSS\", (0x60, 0x60, 0x68));
 }
 """,
-        """fn render_home(_font: &FontAtlas, selection: u8, frame: u32) {
+        """fn render_home(font: &FontAtlas, selection: u8, frame: u32) {
     draw_home_image();
 
-    // The artwork is static; this GPU layer makes the active card unmistakable
-    // and proves that the HOME UI is being redrawn every frame.
+    // Keep the low-resolution HOME deliberately simple. Cover the baked card
+    // captions from the concept artwork and redraw only the two large labels.
+    draw_rect(20, 173, 138, 45, (0x08, 0x12, 0x20));
+    draw_rect(162, 173, 139, 45, (0x12, 0x08, 0x20));
+
+    // PRISMA-PI: P and I get independent colors so they survive clearly at 320x240.
+    font.draw_text(53, 190, \"PRISMA-\", (0xD8, 0xF0, 0xF0));
+    font.draw_text(109, 190, \"P\", (0xF0, 0x38, 0xD8));
+    font.draw_text(117, 190, \"I\", (0x30, 0xE8, 0xF0));
+    font.draw_text(195, 190, \"TEST MODE\", (0xF0, 0xE8, 0xF0));
+
     let pulse = ((frame / 10) & 1) == 0;
     let cyan = if pulse { (0x30, 0xE8, 0xF0) } else { (0x20, 0xA0, 0xC0) };
     let magenta = if pulse { (0xF0, 0x40, 0xD8) } else { (0xB0, 0x20, 0xA0) };
@@ -227,4 +258,4 @@ for old, new, label in replacements:
     s = s.replace(old, new, 1)
 
 path.write_text(s)
-print(f"Applied full-screen HOME artwork, animated selection and simple-pad controls to {path}")
+print(f"Applied full-screen HOME artwork, horizontal selection and simple labels to {path}")
