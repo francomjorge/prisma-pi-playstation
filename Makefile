@@ -29,10 +29,16 @@ sync: setup
 	@cat assets/home_ps1.b64 \
 		assets/home_ps1.b64.01 \
 		assets/home_ps1.b64.02 \
+		assets/home_ps1.b64.03 \
+		assets/home_ps1.b64.04 \
+		assets/home_ps1.b64.05 \
+		assets/home_ps1.b64.06 \
+		assets/home_ps1.b64.07 \
 		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/home_ps1.bin"
 	@python3 tools/input_compat.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/splash_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/home_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/home_8bit_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/home_selector_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
