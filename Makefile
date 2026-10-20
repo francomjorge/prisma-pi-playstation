@@ -1,3 +1,4 @@
+# PRISMA-PI PS1 build pipeline
 PSOXIDE_REPO ?= https://github.com/EBonura/PSoXide.git
 PSOXIDE_REV  ?= 3cf22179d8798e8ce5899743fdcf222fc9486a8a
 PSOXIDE_DIR  ?= .psoxide
