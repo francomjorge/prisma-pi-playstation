@@ -47,6 +47,7 @@ sync: setup
 		assets/india_ps1.b64.05 \
 		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/india_ps1.bin"
 	@cat assets/india_ui_ps1.b64 | base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/india_ui_ps1.bin"
+	@cat assets/prisma_fire_ps1.b64 | base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/prisma_fire_ps1.bin"
 	@python3 tools/input_compat.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/splash_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/home_patch.py "$(EXAMPLE_DIR)/src/main.rs"
@@ -55,6 +56,7 @@ sync: setup
 	@python3 tools/india_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/india_controls_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/india_numbers_align_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/prisma_fire_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
