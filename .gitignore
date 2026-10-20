@@ -1,0 +1,4 @@
+.psoxide/
+build/
+target/
+.DS_Store
