@@ -54,6 +54,7 @@ sync: setup
 	@python3 tools/home_selector_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/india_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/india_controls_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/india_numbers_align_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
