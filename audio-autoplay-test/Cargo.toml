@@ -1,0 +1,21 @@
+[package]
+name = "audio-autoplay-test"
+version = "0.1.0"
+edition = "2021"
+license = "GPL-2.0-or-later"
+
+[workspace]
+
+[[bin]]
+name = "audio-autoplay-test"
+path = "src/main.rs"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+
+[dependencies]
+psx-asset = { path = "../../crates/psx-asset" }
+psx-rt    = { path = "../../crates/psx-rt" }
+psx-spu   = { path = "../../crates/psx-spu" }
