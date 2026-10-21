@@ -60,6 +60,7 @@ sync: setup
 	@python3 tools/india_numbers_align_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/prisma_fire_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/india_audio_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/audio_instrument_test_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
