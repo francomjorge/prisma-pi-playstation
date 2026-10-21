@@ -5,6 +5,7 @@ EXAMPLE      := audio-autoplay-test
 EXAMPLE_DIR  := $(PSOXIDE_DIR)/sdk/examples/$(EXAMPLE)
 OUT_DIR      := audio-autoplay-test/build
 PSX_OUT_DIR  := $(PSOXIDE_DIR)/build/examples/mipsel-sony-psx/release
+WOOF_SHA256  := c27a964da823587f8145a8d153ed05633cbeb2e560486568d23429aace0c1f59
 
 .PHONY: setup sync build clean
 
@@ -19,6 +20,7 @@ sync: setup
 	@cp audio-autoplay-test/Cargo.toml "$(EXAMPLE_DIR)/Cargo.toml"
 	@cp audio-autoplay-test/src/main.rs "$(EXAMPLE_DIR)/src/main.rs"
 	@cat audio-autoplay-test/assets/woof.psau.b64.* | base64 -d > "$(EXAMPLE_DIR)/src/woof.psau"
+	@echo "$(WOOF_SHA256)  $(EXAMPLE_DIR)/src/woof.psau" | sha256sum -c -
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
