@@ -20,6 +20,7 @@ lto = true
 psx-asset = { path = "../../crates/psx-asset" }
 psx-font  = { path = "../../crates/psx-font" }
 psx-gpu   = { path = "../../crates/psx-gpu" }
+psx-gte   = { path = "../../crates/psx-gte" }
 psx-hw    = { path = "../../../crates/psx-hw" }
 psx-io    = { path = "../../crates/psx-io" }
 psx-pad   = { path = "../../crates/psx-pad" }
