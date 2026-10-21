@@ -1,0 +1,22 @@
+[package]
+name = "woof-only-v2"
+version = "0.1.0"
+edition = "2021"
+license = "GPL-2.0-or-later"
+
+[workspace]
+
+[[bin]]
+name = "woof-only-v2"
+path = "src/main.rs"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+
+[dependencies]
+psx-asset = { path = "../../crates/psx-asset" }
+psx-gpu   = { path = "../../crates/psx-gpu" }
+psx-rt    = { path = "../../crates/psx-rt" }
+psx-spu   = { path = "../../crates/psx-spu" }
