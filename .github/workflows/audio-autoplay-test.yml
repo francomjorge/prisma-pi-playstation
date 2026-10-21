@@ -1,0 +1,24 @@
+name: Build audio autoplay PS1 test
+
+on:
+  push:
+    branches: [audio-autoplay-test]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build standalone audio autoplay BIN/CUE
+        run: make -f audio-autoplay-test/Makefile build
+
+      - name: Upload standalone disc image
+        uses: actions/upload-artifact@v4
+        with:
+          name: audio-autoplay-ps1
+          path: |
+            audio-autoplay-test/build/audio-autoplay-test.bin
+            audio-autoplay-test/build/audio-autoplay-test.cue
