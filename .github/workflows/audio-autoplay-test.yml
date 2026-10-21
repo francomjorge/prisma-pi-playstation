@@ -5,6 +5,10 @@ on:
     branches: [audio-autoplay-test]
   workflow_dispatch:
 
+concurrency:
+  group: audio-autoplay-test
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-24.04
