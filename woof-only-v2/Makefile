@@ -5,6 +5,7 @@ EXAMPLE      := woof-only-v2
 EXAMPLE_DIR  := $(PSOXIDE_DIR)/sdk/examples/$(EXAMPLE)
 OUT_DIR      := woof-only-v2/build
 PSX_OUT_DIR  := $(PSOXIDE_DIR)/build/examples/mipsel-sony-psx/release
+WOOF_SHA256  := c27a964da823587f8145a8d153ed05633cbeb2e560486568d23429aace0c1f59
 
 .PHONY: setup sync build clean
 
@@ -19,7 +20,7 @@ sync: setup
 	@cp woof-only-v2/Cargo.toml "$(EXAMPLE_DIR)/Cargo.toml"
 	@cp woof-only-v2/src/main.rs "$(EXAMPLE_DIR)/src/main.rs"
 	@cat audio-autoplay-test/assets/woof.psau.b64.* | base64 -d > "$(EXAMPLE_DIR)/src/woof.psau"
-	@echo "e4dd2b5d560e1ef809086fa9ee1e23858b00994387868f864013b87e97f9260d  $(EXAMPLE_DIR)/src/woof.psau" | sha256sum -c -
+	@echo "$(WOOF_SHA256)  $(EXAMPLE_DIR)/src/woof.psau" | sha256sum -c -
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
