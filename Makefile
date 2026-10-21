@@ -6,6 +6,7 @@ EXAMPLE      := primapi
 EXAMPLE_DIR  := $(PSOXIDE_DIR)/sdk/examples/$(EXAMPLE)
 OUT_DIR      := build
 PSX_OUT_DIR  := $(PSOXIDE_DIR)/build/examples/mipsel-sony-psx/release
+INDIA_AUDIO_ARCHIVE := assets/audio/india/india_audio_5s_30k.tar.xz
 FRONTEND     ?=
 
 .PHONY: setup sync build run clean status
@@ -49,7 +50,11 @@ sync: setup
 		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/india_ps1.bin"
 	@cat assets/india_ui_ps1.b64 | base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/india_ui_ps1.bin"
 	@cat assets/prisma_fire_ps1.b64 | base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/prisma_fire_ps1.bin"
-	@tar -xJf assets/audio/india/india_audio_5s_30k.tar.xz -C "$(EXAMPLE_DIR)/src"
+	@if xz -t "$(INDIA_AUDIO_ARCHIVE)" >/dev/null 2>&1; then \
+		tar -xJf "$(INDIA_AUDIO_ARCHIVE)" -C "$(EXAMPLE_DIR)/src"; \
+	else \
+		echo "INDIA audio archive is corrupt/unavailable; building diagnostic SPU test without INDIA stems"; \
+	fi
 	@python3 tools/input_compat.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/splash_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/home_patch.py "$(EXAMPLE_DIR)/src/main.rs"
@@ -59,7 +64,11 @@ sync: setup
 	@python3 tools/india_controls_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/india_numbers_align_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/prisma_fire_patch.py "$(EXAMPLE_DIR)/src/main.rs"
-	@python3 tools/india_audio_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@if [ -f "$(EXAMPLE_DIR)/src/india_drum1.psau" ]; then \
+		python3 tools/india_audio_patch.py "$(EXAMPLE_DIR)/src/main.rs"; \
+	else \
+		echo "Skipping INDIA audio patch for diagnostic build"; \
+	fi
 	@python3 tools/audio_instrument_test_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
