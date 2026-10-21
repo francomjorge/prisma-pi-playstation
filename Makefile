@@ -71,6 +71,7 @@ sync: setup
 	fi
 	@python3 tools/audio_instrument_test_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/gte_test_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/asset_lab_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
