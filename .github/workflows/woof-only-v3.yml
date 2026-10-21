@@ -1,0 +1,28 @@
+name: Build WOOF_ONLY_V3
+
+on:
+  push:
+    branches: [audio-autoplay-test]
+  workflow_dispatch:
+
+concurrency:
+  group: woof-only-v3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build WOOF_ONLY_V3 BIN/CUE
+        run: make -f woof-only-v3/Makefile build
+
+      - name: Upload WOOF_ONLY_V3
+        uses: actions/upload-artifact@v4
+        with:
+          name: WOOF_ONLY_V3
+          path: |
+            woof-only-v3/build/woof-only-v3.bin
+            woof-only-v3/build/woof-only-v3.cue
