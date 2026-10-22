@@ -1,0 +1,1 @@
+3D PLAY 3 Egg Train test build: base 1.2, Manhattan/Hangar removed, Egg Train room ~1926 triangles, textured Zurg player, flat-shaded environment for first validation.
