@@ -86,6 +86,7 @@ sync: setup
 	@python3 tools/3d_play1_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play12_runtime_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play2_manhattan_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/3d_play21_hangar_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
