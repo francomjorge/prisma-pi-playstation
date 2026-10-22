@@ -21,6 +21,9 @@ sync: setup
 	@mkdir -p "$(EXAMPLE_DIR)/src"
 	@cp Cargo.toml "$(EXAMPLE_DIR)/Cargo.toml"
 	@cp src/main.rs "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/fetch_cp437.py build/assets/cp437_source.bin
+	@python3 tools/cook_cp437.py build/assets/cp437_source.bin --out build/assets/cp437_8x8.bin --rust build/assets/cp437_8x8.rs
+	@cp build/assets/cp437_8x8.bin "$(EXAMPLE_DIR)/src/cp437_8x8.bin"
 	@cat assets/presentation_ps1.b64 \
 		assets/presentation_ps1.b64.01 \
 		assets/presentation_ps1.b64.02 \
@@ -71,6 +74,7 @@ sync: setup
 	fi
 	@python3 tools/audio_instrument_test_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/gte_test_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/asset_lab_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
