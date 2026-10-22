@@ -2,7 +2,9 @@
 from pathlib import Path
 import base64,gzip,struct,sys
 src=Path(sys.argv[1]); out=Path(sys.argv[2])
-raw=gzip.decompress(base64.b64decode(src.read_text().strip()))
+text=''.join(src.read_text().split())
+text += '=' * ((-len(text)) % 4)
+raw=gzip.decompress(base64.b64decode(text))
 off=0
 vcount,tcount=struct.unpack_from('<HH',raw,off); off+=4
 verts=[]
