@@ -77,6 +77,7 @@ sync: setup
 	@python3 tools/3d_play1_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play12_runtime_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play12_duo_ellipse_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/3d_play12_free_camera_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
