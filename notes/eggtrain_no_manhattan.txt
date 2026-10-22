@@ -1,0 +1,1 @@
+This branch intentionally contains no Manhattan Corner or Colony Wars Hangar integration. It is derived directly from 3D PLAY 1.2.
