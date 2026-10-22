@@ -29,10 +29,10 @@ sync: setup
 		assets/3d/manhattan_mesh.b64.02 \
 		> "$(EXAMPLE_DIR)/src/manhattan_mesh.b64"
 	@python3 tools/manhattan_codegen.py "$(EXAMPLE_DIR)/src/manhattan_mesh.b64" "$(EXAMPLE_DIR)/src/manhattan.rs"
-	@cat assets/3d/manhattan_atlas.b64.00 \
+	@python3 tools/b64_gzip_join.py "$(EXAMPLE_DIR)/src/manhattan_atlas.bin" \
+		assets/3d/manhattan_atlas.b64.00 \
 		assets/3d/manhattan_atlas.b64.01 \
-		assets/3d/manhattan_atlas.b64.02 \
-		| base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/manhattan_atlas.bin"
+		assets/3d/manhattan_atlas.b64.02
 	@cat assets/presentation_ps1.b64 \
 		assets/presentation_ps1.b64.01 \
 		assets/presentation_ps1.b64.02 \
