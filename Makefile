@@ -24,6 +24,14 @@ sync: setup
 	@python3 tools/mesh3d_codegen.py assets/3d/play11_meshes.b64 "$(EXAMPLE_DIR)/src/mesh3d.rs"
 	@cat assets/3d/play11_ufo_tex.b64 | base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/play11_ufo_tex.bin"
 	@cat assets/3d/play11_zurg_tex.b64 | base64 -d | gzip -d > "$(EXAMPLE_DIR)/src/play11_zurg_tex.bin"
+	@cat assets/3d/eggtrain_mesh.b64.00 \
+		assets/3d/eggtrain_mesh.b64.01 \
+		assets/3d/eggtrain_mesh.b64.02 \
+		assets/3d/eggtrain_mesh.b64.03 \
+		assets/3d/eggtrain_mesh.b64.04 \
+		assets/3d/eggtrain_mesh.b64.05 \
+		> "$(EXAMPLE_DIR)/src/eggtrain_mesh.b64"
+	@python3 tools/eggtrain_codegen.py "$(EXAMPLE_DIR)/src/eggtrain_mesh.b64" "$(EXAMPLE_DIR)/src/eggtrain.rs"
 	@cat assets/presentation_ps1.b64 \
 		assets/presentation_ps1.b64.01 \
 		assets/presentation_ps1.b64.02 \
@@ -76,6 +84,7 @@ sync: setup
 	@python3 tools/gte_test_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play1_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play12_runtime_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/3d_play3_eggtrain_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 
 build: sync
 	@$(MAKE) -C "$(PSOXIDE_DIR)" disc EXAMPLE=$(EXAMPLE)
