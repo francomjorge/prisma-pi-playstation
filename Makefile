@@ -88,6 +88,7 @@ sync: setup
 	@python3 tools/3d_play1_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play12_runtime_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play12_extra_chars_patch.py "$(EXAMPLE_DIR)/src/main.rs"
+	@python3 tools/3d_play13_prep.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play13_textures_inspect_patch.py "$(EXAMPLE_DIR)/src/main.rs"
 	@python3 tools/3d_play13_compact_fix.py "$(EXAMPLE_DIR)/src/main.rs"
 
